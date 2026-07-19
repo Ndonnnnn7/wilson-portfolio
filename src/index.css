@@ -1,0 +1,34 @@
+:root {
+  font-family: 'Avenir Next', 'Segoe UI Variable', 'Segoe UI', sans-serif;
+  color-scheme: light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: #fff9f0;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100dvh;
+  margin: 0;
+  background: #fff9f0;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+::selection {
+  color: #f8faff;
+  background: #334eac;
+}
