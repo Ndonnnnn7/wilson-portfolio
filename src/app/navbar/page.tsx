@@ -1,7 +1,5 @@
-'use client'
-
 import { List, X } from '@phosphor-icons/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './navbar.css'
 
 const navItems = [
@@ -13,8 +11,45 @@ const navItems = [
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState('home')
 
   const closeMenu = () => setIsOpen(false)
+
+  useEffect(() => {
+    const sections = navItems
+      .map(({ href }) => document.querySelector<HTMLElement>(href))
+      .filter((section): section is HTMLElement => section !== null)
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleSection = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
+
+        if (visibleSection?.target.id) {
+          setActiveSection(visibleSection.target.id)
+        }
+      },
+      {
+        rootMargin: '-20% 0px -65%',
+        threshold: [0, 0.15, 0.4],
+      },
+    )
+
+    sections.forEach((section) => observer.observe(section))
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    if (!isOpen) return
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsOpen(false)
+    }
+
+    document.addEventListener('keydown', closeOnEscape)
+    return () => document.removeEventListener('keydown', closeOnEscape)
+  }, [isOpen])
 
   return (
     <header className="site-header">
@@ -24,12 +59,12 @@ export default function Navbar() {
         </a>
 
         <div className="navbar__links" aria-label="Portfolio sections">
-          {navItems.map((item, index) => (
+          {navItems.map((item) => (
             <a
               key={item.label}
-              className={index === 0 ? 'navbar__link navbar__link--active' : 'navbar__link'}
+              className={activeSection === item.href.slice(1) ? 'navbar__link navbar__link--active' : 'navbar__link'}
               href={item.href}
-              aria-current={index === 0 ? 'page' : undefined}
+              aria-current={activeSection === item.href.slice(1) ? 'location' : undefined}
             >
               {item.label}
             </a>
@@ -55,12 +90,12 @@ export default function Navbar() {
         className="navbar__mobile-menu"
         hidden={!isOpen}
       >
-        {navItems.map((item, index) => (
+        {navItems.map((item) => (
           <a
             key={item.label}
-            className={index === 0 ? 'navbar__mobile-link navbar__mobile-link--active' : 'navbar__mobile-link'}
+            className={activeSection === item.href.slice(1) ? 'navbar__mobile-link navbar__mobile-link--active' : 'navbar__mobile-link'}
             href={item.href}
-            aria-current={index === 0 ? 'page' : undefined}
+            aria-current={activeSection === item.href.slice(1) ? 'location' : undefined}
             onClick={closeMenu}
           >
             {item.label}

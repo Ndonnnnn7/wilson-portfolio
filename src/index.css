@@ -1,5 +1,7 @@
 :root {
-  font-family: 'Avenir Next', 'Segoe UI Variable', 'Segoe UI', sans-serif;
+  --font-display: 'IBM Plex Sans Variable', 'Avenir Next', 'Segoe UI Variable', 'Segoe UI', sans-serif;
+  --font-body: 'Avenir Next', 'Segoe UI Variable', 'Segoe UI', sans-serif;
+  font-family: var(--font-body);
   color-scheme: light;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -9,14 +11,21 @@
 
 html {
   scroll-behavior: smooth;
-  background: #fff9f0;
+  background: var(--surface, #fff9f0);
+  scroll-padding-top: 6rem;
 }
 
 body {
   min-width: 320px;
   min-height: 100dvh;
   margin: 0;
-  background: #fff9f0;
+  background: var(--surface, #fff9f0);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 button,

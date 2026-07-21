@@ -293,3 +293,11 @@
     backdrop-filter: none;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar *,
+  .navbar__mobile-menu * {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
