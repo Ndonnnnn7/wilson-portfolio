@@ -4,13 +4,12 @@ import Footer from './app/footer/page'
 import Home from './app/home/page'
 import Navbar from './app/navbar/page'
 import Projects from './app/projects/page'
-import './App.css'
 
 function App() {
   return (
     <>
       <Navbar />
-      <main id="main-content" tabIndex={-1}>
+      <main id="main-content" className="overflow-x-clip bg-[#f7f8fc] focus:outline-none" tabIndex={-1}>
         <Home />
         <About />
         <Projects />
