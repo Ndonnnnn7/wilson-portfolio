@@ -17,7 +17,6 @@ import {
   UsersThree,
 } from '@phosphor-icons/react'
 import {
-  SiC,
   SiCss,
   SiHtml5,
   SiJavascript,
@@ -25,6 +24,7 @@ import {
   SiPython,
   SiR,
 } from '@icons-pack/react-simple-icons'
+import CLogo from '../../components/c-logo'
 import {
   AnimatePresence,
   LazyMotion,
@@ -52,7 +52,7 @@ type SkillCardTone = 'blue' | 'sky' | 'cream'
 
 const hardSkills = [
   { name: 'Python', category: 'Programming', Icon: SiPython, color: '#3776ab', size: 'feature', tone: 'blue' },
-  { name: 'C', category: 'Core logic', Icon: SiC, color: '#00599c', size: 'standard', tone: 'sky' },
+  { name: 'C', category: 'Core logic', Icon: CLogo, color: '#659ad2', size: 'standard', tone: 'sky' },
   { name: 'R', category: 'Statistics', Icon: SiR, color: '#276dc3', size: 'standard', tone: 'blue' },
   { name: 'Tableau', category: 'Visualization', Icon: TableauLogo, color: '#c65d1e', size: 'wide', tone: 'cream' },
   { name: 'MySQL', category: 'Database', Icon: SiMysql, color: '#386b91', size: 'standard', tone: 'sky' },
@@ -66,7 +66,7 @@ const hardSkills = [
 ] as const satisfies ReadonlyArray<{
   name: string
   category: string
-  Icon: typeof SiPython | typeof TableauLogo | typeof MicrosoftExcelLogo
+  Icon: typeof SiPython | typeof TableauLogo | typeof MicrosoftExcelLogo | typeof CLogo
   color: string
   size: SkillCardSize
   tone: SkillCardTone
@@ -149,12 +149,8 @@ export default function About() {
       <LazyMotion features={domAnimation} strict>
         <div className="mx-auto block min-h-[min(42rem,80dvh)] w-[min(calc(100%_-_3rem),1216px)] py-[clamp(6rem,9vw,8.5rem)] max-[540px]:min-h-0 max-[540px]:w-full max-[540px]:px-5 max-[430px]:py-20">
           <div className="mb-[clamp(1.5rem,3vw,2.5rem)] grid grid-cols-[minmax(13rem,.55fr)_minmax(0,1.45fr)] items-end gap-8 max-[1050px]:grid-cols-1 max-md:mb-10">
-            <m.p
-              className="mb-2 inline-flex w-fit items-center gap-[.65rem] rounded-full border border-planetary/14 bg-[rgb(237_243_252/76%)] py-[.35rem] pr-[.72rem] pl-[.38rem] text-[.7rem] font-[750] tracking-[.13em] text-galaxy uppercase"
-            >
-            </m.p>
             <m.h2
-              className="m-0 max-w-none text-right font-display text-[clamp(3.25rem,6.7vw,7rem)] leading-[.88] font-[650] tracking-[-.052em] text-galaxy max-[1050px]:text-left max-md:text-[clamp(3rem,12vw,5.25rem)] max-[430px]:text-[clamp(2.75rem,13.5vw,3.7rem)] [&_em]:font-serif [&_em]:font-normal [&_em]:tracking-[-.06em] [&_em]:text-planetary"
+              className="col-start-2 m-0 max-w-none text-right font-display text-[clamp(3.25rem,6.7vw,7rem)] leading-[.88] font-[650] tracking-[-.052em] text-galaxy max-[1050px]:col-start-auto max-[1050px]:text-left max-md:text-[clamp(3rem,12vw,5.25rem)] max-[430px]:text-[clamp(2.75rem,13.5vw,3.7rem)] [&_em]:font-serif [&_em]:font-normal [&_em]:tracking-[-.06em] [&_em]:text-planetary"
               id="about-title"
               initial={reduceMotion ? false : { opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -262,30 +258,34 @@ export default function About() {
             <div id="skills-panel" className="mt-[clamp(2.5rem,5vw,4rem)] rounded-[1.25rem] focus-visible:outline-3 focus-visible:outline-universe focus-visible:outline-offset-8 max-md:mt-7" role="tabpanel" aria-labelledby={`${activeFilter}-skills-tab`} tabIndex={0}>
               <AnimatePresence mode="wait" initial={false}>
                 {activeFilter === 'hard' ? (
-                  <m.ul key="hard" className="grid list-none grid-cols-10 auto-rows-[9.6rem] gap-[clamp(1rem,1.6vw,1.4rem)] px-5 pt-6 pb-12 [perspective:1000px] max-[1050px]:grid-cols-4 max-[1050px]:auto-rows-[8.8rem] max-md:grid-cols-2 max-md:auto-rows-[8.5rem] max-md:gap-4 max-md:px-[.65rem] max-md:pt-4 max-md:pb-10 max-[430px]:auto-rows-[minmax(7.7rem,auto)] max-[430px]:gap-[.8rem] max-[430px]:px-[.4rem]" variants={reduceMotion ? undefined : skillListVariants} initial={reduceMotion ? false : 'hidden'} animate="visible" exit={reduceMotion ? undefined : 'exit'}>
+                  <m.ul key="hard" className="grid list-none grid-cols-10 auto-rows-[9.6rem] gap-[clamp(1.15rem,1.8vw,1.6rem)] px-5 pt-6 pb-12 [perspective:1000px] max-[1050px]:grid-cols-4 max-[1050px]:auto-rows-[8.8rem] max-md:grid-cols-2 max-md:auto-rows-[8.5rem] max-md:gap-x-5 max-md:gap-y-7 max-md:px-[.65rem] max-md:pt-4 max-md:pb-10 max-[430px]:auto-rows-[minmax(7.7rem,auto)] max-[430px]:gap-x-4 max-[430px]:gap-y-9 max-[430px]:px-[.4rem]" variants={reduceMotion ? undefined : skillListVariants} initial={reduceMotion ? false : 'hidden'} animate="visible" exit={reduceMotion ? undefined : 'exit'}>
                     {hardSkills.map(({ name, Icon, color, size, tone }, index) => (
                       <m.li
                         key={name}
                         className={`${skillCardBase} ${toneClasses[tone]} ${sizeClasses[size]}${index === 9 ? ' col-start-3 col-span-2 max-[1050px]:col-start-auto' : index === 10 ? ' col-start-5 col-span-2 max-[1050px]:col-start-auto' : index === 11 ? ' col-start-7 col-span-2 max-[1050px]:col-start-auto' : ''}${[0, 8, 11].includes(index) ? ` ${layeredCard}` : ''}`}
                         style={{ '--skill-color': color } as CSSProperties}
-                        animate={{ rotate: reduceMotion ? 0 : skillCardTilts[index] }}
-                        whileHover={reduceMotion ? undefined : { y: -12, rotate: 0, scale: 1.035, zIndex: 10 }}
-                        transition={{ type: 'spring', stiffness: 340, damping: 24, mass: .65 }}
+                        initial={reduceMotion ? false : { opacity: 0, y: 28, scale: .94, rotate: skillCardTilts[index] * 1.6 }}
+                        whileInView={{ opacity: 1, y: 0, scale: 1, rotate: reduceMotion ? 0 : skillCardTilts[index] }}
+                        viewport={{ once: true, amount: 0.18 }}
+                        whileHover={reduceMotion ? undefined : { y: -12, rotate: 0, scale: 1.035, zIndex: 10, transition: { type: 'spring', stiffness: 340, damping: 24, mass: .65, delay: 0 } }}
+                        transition={{ type: 'spring', stiffness: 300, damping: 24, mass: .65, delay: reduceMotion ? 0 : index * .045 }}
                       >
-                        <span className={`${skillIconBase} text-[var(--skill-color)]${size === 'feature' ? ' size-[4.25rem] rounded-[1.1rem] max-[430px]:size-[3.25rem] [&_svg]:size-[2.8rem] [&_svg]:max-[430px]:size-[1.9rem]' : ''}${index === 0 ? ' translate-x-[-4rem] max-[1050px]:translate-x-0 max-[430px]:translate-x-[-.4rem]' : ''}`} aria-hidden="true"><Icon /></span>
-                        <strong className={`${skillNameBase}${size === 'feature' ? ' max-w-[14ch] text-[clamp(1.15rem,1.6vw,1.35rem)] max-[430px]:text-base' : ''}${index === 0 ? ' translate-x-[-4rem] max-[1050px]:translate-x-0 max-[430px]:translate-x-[-.4rem]' : ''}`}>{name}</strong>
+                        <span className={`${skillIconBase} text-[var(--skill-color)]${size === 'feature' ? ' size-[4.25rem] rounded-[1.1rem] max-[430px]:size-[3.25rem] [&_svg]:size-[2.8rem] [&_svg]:max-[430px]:size-[1.9rem]' : ''}`} aria-hidden="true"><Icon /></span>
+                        <strong className={`${skillNameBase}${size === 'feature' ? ' max-w-[14ch] text-[clamp(1.15rem,1.6vw,1.35rem)] max-[430px]:text-base' : ''}`}>{name}</strong>
                       </m.li>
                     ))}
                   </m.ul>
                 ) : (
-                  <m.ul key="soft" className="grid list-none grid-cols-10 auto-rows-[9.6rem] gap-[clamp(1rem,1.6vw,1.4rem)] px-5 pt-6 pb-12 [perspective:1000px] max-[1050px]:grid-cols-4 max-[1050px]:auto-rows-[8.8rem] max-md:grid-cols-2 max-md:auto-rows-[8.5rem] max-md:gap-4 max-md:px-[.65rem] max-md:pt-4 max-md:pb-10 max-[430px]:auto-rows-[minmax(7.7rem,auto)] max-[430px]:gap-[.8rem] max-[430px]:px-[.4rem]" variants={reduceMotion ? undefined : skillListVariants} initial={reduceMotion ? false : 'hidden'} animate="visible" exit={reduceMotion ? undefined : 'exit'}>
+                  <m.ul key="soft" className="grid list-none grid-cols-10 auto-rows-[9.6rem] gap-[clamp(1.15rem,1.8vw,1.6rem)] px-5 pt-6 pb-12 [perspective:1000px] max-[1050px]:grid-cols-4 max-[1050px]:auto-rows-[8.8rem] max-md:grid-cols-2 max-md:auto-rows-[8.5rem] max-md:gap-x-5 max-md:gap-y-7 max-md:px-[.65rem] max-md:pt-4 max-md:pb-10 max-[430px]:auto-rows-[minmax(7.7rem,auto)] max-[430px]:gap-x-4 max-[430px]:gap-y-9 max-[430px]:px-[.4rem]" variants={reduceMotion ? undefined : skillListVariants} initial={reduceMotion ? false : 'hidden'} animate="visible" exit={reduceMotion ? undefined : 'exit'}>
                     {softSkills.map(({ name, Icon, size, tone }, index) => (
                       <m.li
                         key={name}
                         className={`${skillCardBase} ${toneClasses[tone]} ${sizeClasses[size]}${index === 8 ? ' col-start-4 col-span-2 max-[1050px]:col-start-auto' : ''}${[0, 6, 9].includes(index) ? ` ${layeredCard}` : ''}`}
-                        animate={{ rotate: reduceMotion ? 0 : skillCardTilts[index] }}
-                        whileHover={reduceMotion ? undefined : { y: -12, rotate: 0, scale: 1.035, zIndex: 10 }}
-                        transition={{ type: 'spring', stiffness: 340, damping: 24, mass: .65 }}
+                        initial={reduceMotion ? false : { opacity: 0, y: 28, scale: .94, rotate: skillCardTilts[index] * 1.6 }}
+                        whileInView={{ opacity: 1, y: 0, scale: 1, rotate: reduceMotion ? 0 : skillCardTilts[index] }}
+                        viewport={{ once: true, amount: 0.18 }}
+                        whileHover={reduceMotion ? undefined : { y: -12, rotate: 0, scale: 1.035, zIndex: 10, transition: { type: 'spring', stiffness: 340, damping: 24, mass: .65, delay: 0 } }}
+                        transition={{ type: 'spring', stiffness: 300, damping: 24, mass: .65, delay: reduceMotion ? 0 : index * .045 }}
                       >
                         <span className={`${skillIconBase} text-planetary${size === 'feature' ? ' size-[4.25rem] rounded-[1.1rem] max-[430px]:size-[3.25rem] [&_svg]:size-[2.8rem] [&_svg]:max-[430px]:size-[1.9rem]' : ''}`} aria-hidden="true"><Icon weight="duotone" /></span>
                         <strong className={`${skillNameBase}${size === 'feature' ? ' max-w-[14ch] text-[clamp(1.15rem,1.6vw,1.35rem)] max-[430px]:text-base' : ''}`}>{name}</strong>

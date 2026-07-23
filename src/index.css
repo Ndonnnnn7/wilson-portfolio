@@ -59,13 +59,24 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 6rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     background: var(--color-milky-way);
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
   }
 
   body {
     min-width: 320px;
     min-height: 100dvh;
     margin: 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     background: var(--color-milky-way);
   }
 
@@ -89,6 +100,28 @@
     *::after {
       scroll-behavior: auto !important;
       transition-duration: .01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .footer-layout {
+    display: grid;
+    grid-template-columns:
+      minmax(0, 1.25fr)
+      minmax(0, .62fr)
+      minmax(0, .7fr)
+      minmax(0, 1.45fr);
+    align-items: start;
+    gap: clamp(1.5rem, 3.5vw, 3.75rem);
+    margin-block: 4rem;
+  }
+
+  @media (max-width: 479px) {
+    .footer-layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 2.5rem;
+      margin-block: 3rem;
     }
   }
 }

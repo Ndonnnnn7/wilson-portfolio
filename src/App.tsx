@@ -3,9 +3,11 @@ import Experience from './app/experience/page'
 import Footer from './app/footer/page'
 import Home from './app/home/page'
 import Navbar from './app/navbar/page'
+import ProjectDetail from './app/projects/detail'
 import Projects from './app/projects/page'
+import { Route, Routes } from 'react-router-dom'
 
-function App() {
+function Portfolio() {
   return (
     <>
       <Navbar />
@@ -17,6 +19,18 @@ function App() {
       </main>
       <Footer />
     </>
+  )
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Portfolio />} />
+      <Route path="/about" element={<Portfolio />} />
+      <Route path="/projects" element={<Portfolio />} />
+      <Route path="/experience" element={<Portfolio />} />
+      <Route path="/projects/:projectSlug" element={<ProjectDetail />} />
+    </Routes>
   )
 }
 
