@@ -28,7 +28,7 @@ const experiences = [
     logo: '/artefact-logo.png',
     location: 'Jakarta, Indonesia',
     description:
-      'Worked as a Data Scientist intern at Artefact, contributing to analytics and AI-driven solutions with a focus on practical business impact and data storytelling.',
+      'Worked as a Data Scientist intern at Artefact, contributing to analytics and AI-driven solutions with a focus on practical business impact and data storytelling. Developed AI agent use cases across the full pipeline for a flagship Abu Dhabi Government transformation project.',
     highlights: [
       'Data analysis',
       'AI-driven solutions',
@@ -108,8 +108,8 @@ export default function Experience() {
                   <p className="mb-3 text-xs font-extrabold tracking-[0.16em] text-planetary uppercase">
                     {String(index + 1).padStart(2, '0')} · {experience.type}
                   </p>
-                  <div className="mb-5 flex h-20 w-full max-w-64 items-center">
-                    <div className="h-12 w-full">
+                  <div className="mb-5 flex h-24 w-full max-w-72 items-center">
+                    <div className="h-16 w-full">
                       <img
                         src={experience.logo}
                         alt={`${experience.organization} logo`}

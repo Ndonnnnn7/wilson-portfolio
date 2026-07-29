@@ -1,4 +1,4 @@
-import About from './app/about/page'
+import About, { SkillsSection } from './app/about/page'
 import Experience from './app/experience/page'
 import Footer from './app/footer/page'
 import Home from './app/home/page'
@@ -16,6 +16,7 @@ function Portfolio() {
         <About />
         <Projects />
         <Experience />
+        <SkillsSection />
       </main>
       <Footer />
     </>

@@ -123,6 +123,114 @@ const skillIconBase = "grid size-[3.65rem] flex-none place-items-center rounded-
 
 const skillNameBase = "block font-display text-[clamp(1rem,1.3vw,1.15rem)] leading-[1.12] font-bold tracking-[-.025em] text-galaxy [overflow-wrap:anywhere] max-[430px]:text-[.88rem]"
 
+export function SkillsSection() {
+  const [activeFilter, setActiveFilter] = useState<SkillFilter>('hard')
+  const reduceMotion = Boolean(useReducedMotion())
+
+  const selectFilter = (filter: SkillFilter) => setActiveFilter(filter)
+
+  const handleFilterKeyDown = (key: string, filter: SkillFilter) => {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(key)) return
+    const nextFilter = key === 'Home' ? 'hard' : key === 'End' ? 'soft' : filter === 'hard' ? 'soft' : 'hard'
+    selectFilter(nextFilter)
+    requestAnimationFrame(() => document.getElementById(`${nextFilter}-skills-tab`)?.focus())
+  }
+
+  return (
+    <section id="skills" className="relative isolate overflow-clip bg-transparent py-[clamp(3rem,6vw,4.5rem)] text-galaxy before:absolute before:inset-0 before:-z-1 before:bg-[radial-gradient(rgb(51_78_172/13%)_.75px,transparent_.75px)] before:bg-size-[1.5rem_1.5rem] before:opacity-35 before:[mask-image:linear-gradient(to_bottom,transparent,#000_14%,#000_86%,transparent)] before:content-['']" aria-labelledby="skills-title">
+      <div className="mx-auto w-[min(calc(100%_-_3rem),1216px)] max-[540px]:w-full max-[540px]:px-5">
+        <div className="flex items-end justify-between gap-[clamp(2rem,5vw,5rem)] max-md:flex-col max-md:items-start max-md:gap-6">
+          <m.div
+            className="max-w-[38rem]"
+            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.45 }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <h3 className="m-0 font-display text-[clamp(3.4rem,6vw,5.3rem)] leading-[.9] font-[650] tracking-[-.065em] text-galaxy max-[430px]:text-[3.4rem]" id="skills-title">Skills</h3>
+          </m.div>
+
+          <div className="grid flex-none grid-cols-2 gap-3 max-md:w-full max-[430px]:gap-[.55rem]" role="tablist" aria-label="Filter skills">
+            {(['hard', 'soft'] as const).map((filter) => {
+              const isHardSkill = filter === 'hard'
+              const FilterIcon = isHardSkill ? Code : UsersThree
+              const skillCount = isHardSkill ? hardSkills.length : softSkills.length
+
+              return (
+                <button
+                  key={filter}
+                  id={`${filter}-skills-tab`}
+                  type="button"
+                  role="tab"
+                  aria-selected={activeFilter === filter}
+                  aria-controls="skills-panel"
+                  className={`relative isolate grid min-h-[4.7rem] min-w-[12.5rem] cursor-pointer grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-[.7rem] rounded-[1.15rem_.45rem_1.15rem_1.15rem] border border-planetary/13 bg-[#f2f6fc] px-[.78rem] py-[.68rem] text-left text-text-muted shadow-[0_.45rem_1.2rem_rgb(8_31_92/6%)] transition-[color,border-color,background-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:border-planetary/25 hover:bg-white hover:text-galaxy hover:shadow-[0_.8rem_1.5rem_rgb(8_31_92/10%)] focus-visible:outline-3 focus-visible:outline-universe focus-visible:outline-offset-3 max-md:min-w-0 max-[430px]:min-h-[4.2rem] max-[430px]:grid-cols-[auto_minmax(0,1fr)] max-[430px]:gap-[.55rem] max-[430px]:rounded-[.95rem_.35rem_.95rem_.95rem] max-[430px]:p-[.55rem] motion-reduce:transition-none${activeFilter === filter ? ' border-transparent bg-transparent text-white hover:border-transparent hover:bg-transparent hover:text-white' : ''}`}
+                  tabIndex={activeFilter === filter ? 0 : -1}
+                  onClick={() => selectFilter(filter)}
+                  onKeyDown={(event) => {
+                    if (['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
+                      event.preventDefault()
+                      handleFilterKeyDown(event.key, filter)
+                    }
+                  }}
+                >
+                  {activeFilter === filter && <m.span className="absolute -inset-px -z-1 rounded-[inherit] bg-galaxy shadow-[.38rem_.42rem_0_#7d9fd2,0_.8rem_1.5rem_rgb(8_31_92/16%)] max-[430px]:shadow-[.25rem_.3rem_0_#7d9fd2,0_.65rem_1.2rem_rgb(8_31_92/14%)]" layoutId="active-skill-filter" transition={{ duration: reduceMotion ? 0 : 0.24, ease: [0.22, 1, 0.36, 1] }} />}
+                  <span className={`relative z-1 grid aspect-square w-[2.55rem] place-items-center rounded-[.78rem_.3rem_.78rem_.78rem] bg-[#dfeafb] text-planetary transition-colors duration-200 max-[430px]:w-[2.15rem] max-[430px]:rounded-[.65rem_.25rem_.65rem_.65rem] motion-reduce:transition-none [&_svg]:size-5 [&_svg]:max-[430px]:size-[1.05rem]${activeFilter === filter ? ' bg-white/14 text-white' : ''}`} aria-hidden="true"><FilterIcon weight="bold" /></span>
+                  <span className="relative z-1 grid min-w-0 gap-[.18rem]">
+                    <strong className="font-display text-[.83rem] leading-none font-[750] text-inherit max-[430px]:text-[.73rem] max-[430px]:leading-[1.12]">{isHardSkill ? 'Hard Skills' : 'Soft Skills'}</strong>
+                  </span>
+                  <span className={`relative z-1 grid h-7 min-w-7 place-items-center rounded-full bg-white text-[.65rem] font-extrabold text-planetary shadow-[0_.25rem_.65rem_rgb(8_31_92/8%)] max-[430px]:absolute max-[430px]:top-[.38rem] max-[430px]:right-[.4rem] max-[430px]:h-5 max-[430px]:min-w-5 max-[430px]:text-[.55rem]${activeFilter === filter ? ' bg-white/16 text-white shadow-none' : ''}`} aria-label={`${skillCount} skills`}>{skillCount}</span>
+                </button>
+              )
+            })}
+          </div>
+        </div>
+
+        <div id="skills-panel" className="mt-[clamp(2.5rem,5vw,4rem)] rounded-[1.25rem] focus-visible:outline-3 focus-visible:outline-universe focus-visible:outline-offset-8 max-md:mt-7" role="tabpanel" aria-labelledby={`${activeFilter}-skills-tab`} tabIndex={0}>
+          <AnimatePresence mode="wait" initial={false}>
+            {activeFilter === 'hard' ? (
+              <m.ul key="hard" className="grid list-none grid-cols-10 auto-rows-[9.6rem] gap-[clamp(1.15rem,1.8vw,1.6rem)] px-5 pt-6 pb-12 [perspective:1000px] max-[1050px]:grid-cols-4 max-[1050px]:auto-rows-[8.8rem] max-md:grid-cols-2 max-md:auto-rows-[8.5rem] max-md:gap-x-5 max-md:gap-y-7 max-md:px-[.65rem] max-md:pt-4 max-md:pb-10 max-[430px]:auto-rows-[minmax(7.7rem,auto)] max-[430px]:gap-x-4 max-[430px]:gap-y-9 max-[430px]:px-[.4rem]" variants={reduceMotion ? undefined : skillListVariants} initial={reduceMotion ? false : 'hidden'} animate="visible" exit={reduceMotion ? undefined : 'exit'}>
+                {hardSkills.map(({ name, Icon, color, size, tone }, index) => (
+                  <m.li
+                    key={name}
+                    className={`${skillCardBase} ${toneClasses[tone]} ${sizeClasses[size]}${index === 9 ? ' col-start-3 col-span-2 max-[1050px]:col-start-auto' : index === 10 ? ' col-start-5 col-span-2 max-[1050px]:col-start-auto' : index === 11 ? ' col-start-7 col-span-2 max-[1050px]:col-start-auto' : ''}${[0, 8, 11].includes(index) ? ` ${layeredCard}` : ''}`}
+                    style={{ '--skill-color': color } as CSSProperties}
+                    initial={reduceMotion ? false : { opacity: 0, y: 28, scale: .94, rotate: skillCardTilts[index] * 1.6 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1, rotate: reduceMotion ? 0 : skillCardTilts[index] }}
+                    viewport={{ once: true, amount: 0.18 }}
+                    whileHover={reduceMotion ? undefined : { y: -12, rotate: 0, scale: 1.035, zIndex: 10, transition: { type: 'spring', stiffness: 340, damping: 24, mass: .65, delay: 0 } }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 24, mass: .65, delay: reduceMotion ? 0 : index * .045 }}
+                  >
+                    <span className={`${skillIconBase} text-[var(--skill-color)]${size === 'feature' ? ' size-[4.25rem] rounded-[1.1rem] max-[430px]:size-[3.25rem] [&_svg]:size-[2.8rem] [&_svg]:max-[430px]:size-[1.9rem]' : ''}`} aria-hidden="true"><Icon /></span>
+                    <strong className={`${skillNameBase}${size === 'feature' ? ' max-w-[14ch] text-[clamp(1.15rem,1.6vw,1.35rem)] max-[430px]:text-base' : ''}`}>{name}</strong>
+                  </m.li>
+                ))}
+              </m.ul>
+            ) : (
+              <m.ul key="soft" className="grid list-none grid-cols-10 auto-rows-[9.6rem] gap-[clamp(1.15rem,1.8vw,1.6rem)] px-5 pt-6 pb-12 [perspective:1000px] max-[1050px]:grid-cols-4 max-[1050px]:auto-rows-[8.8rem] max-md:grid-cols-2 max-md:auto-rows-[8.5rem] max-md:gap-x-5 max-md:gap-y-7 max-md:px-[.65rem] max-md:pt-4 max-md:pb-10 max-[430px]:auto-rows-[minmax(7.7rem,auto)] max-[430px]:gap-x-4 max-[430px]:gap-y-9 max-[430px]:px-[.4rem]" variants={reduceMotion ? undefined : skillListVariants} initial={reduceMotion ? false : 'hidden'} animate="visible" exit={reduceMotion ? undefined : 'exit'}>
+                {softSkills.map(({ name, Icon, size, tone }, index) => (
+                  <m.li
+                    key={name}
+                    className={`${skillCardBase} ${toneClasses[tone]} ${sizeClasses[size]}${index === 8 ? ' col-start-4 col-span-2 max-[1050px]:col-start-auto' : ''}${[0, 6, 9].includes(index) ? ` ${layeredCard}` : ''}`}
+                    initial={reduceMotion ? false : { opacity: 0, y: 28, scale: .94, rotate: skillCardTilts[index] * 1.6 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1, rotate: reduceMotion ? 0 : skillCardTilts[index] }}
+                    viewport={{ once: true, amount: 0.18 }}
+                    whileHover={reduceMotion ? undefined : { y: -12, rotate: 0, scale: 1.035, zIndex: 10, transition: { type: 'spring', stiffness: 340, damping: 24, mass: .65, delay: 0 } }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 24, mass: .65, delay: reduceMotion ? 0 : index * .045 }}
+                  >
+                    <span className={`${skillIconBase} text-planetary${size === 'feature' ? ' size-[4.25rem] rounded-[1.1rem] max-[430px]:size-[3.25rem] [&_svg]:size-[2.8rem] [&_svg]:max-[430px]:size-[1.9rem]' : ''}`} aria-hidden="true"><Icon weight="duotone" /></span>
+                    <strong className={`${skillNameBase}${size === 'feature' ? ' max-w-[14ch] text-[clamp(1.15rem,1.6vw,1.35rem)] max-[430px]:text-base' : ''}`}>{name}</strong>
+                  </m.li>
+                ))}
+              </m.ul>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null)
   const [activeFilter, setActiveFilter] = useState<SkillFilter>('hard')
@@ -207,95 +315,6 @@ export default function About() {
             </m.article>
           </div>
 
-          <div className="relative mt-[clamp(6rem,10vw,9rem)] overflow-visible max-md:mt-20" aria-labelledby="skills-title">
-            <div className="flex items-end justify-between gap-[clamp(2rem,5vw,5rem)] max-md:flex-col max-md:items-start max-md:gap-6">
-              <m.div
-                className="max-w-[38rem]"
-                initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.45 }}
-                transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <h3 className="m-0 font-display text-[clamp(3.4rem,6vw,5.3rem)] leading-[.9] font-[650] tracking-[-.065em] text-galaxy max-[430px]:text-[3.4rem]" id="skills-title">Skills</h3>
-              </m.div>
-
-              <div className="grid flex-none grid-cols-2 gap-3 max-md:w-full max-[430px]:gap-[.55rem]" role="tablist" aria-label="Filter skills">
-                {(['hard', 'soft'] as const).map((filter) => {
-                  const isHardSkill = filter === 'hard'
-                  const FilterIcon = isHardSkill ? Code : UsersThree
-                  const skillCount = isHardSkill ? hardSkills.length : softSkills.length
-
-                  return (
-                    <button
-                      key={filter}
-                      id={`${filter}-skills-tab`}
-                      type="button"
-                      role="tab"
-                      aria-selected={activeFilter === filter}
-                      aria-controls="skills-panel"
-                      className={`relative isolate grid min-h-[4.7rem] min-w-[12.5rem] cursor-pointer grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-[.7rem] rounded-[1.15rem_.45rem_1.15rem_1.15rem] border border-planetary/13 bg-[#f2f6fc] px-[.78rem] py-[.68rem] text-left text-text-muted shadow-[0_.45rem_1.2rem_rgb(8_31_92/6%)] transition-[color,border-color,background-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:border-planetary/25 hover:bg-white hover:text-galaxy hover:shadow-[0_.8rem_1.5rem_rgb(8_31_92/10%)] focus-visible:outline-3 focus-visible:outline-universe focus-visible:outline-offset-3 max-md:min-w-0 max-[430px]:min-h-[4.2rem] max-[430px]:grid-cols-[auto_minmax(0,1fr)] max-[430px]:gap-[.55rem] max-[430px]:rounded-[.95rem_.35rem_.95rem_.95rem] max-[430px]:p-[.55rem] motion-reduce:transition-none${activeFilter === filter ? ' border-transparent bg-transparent text-white hover:border-transparent hover:bg-transparent hover:text-white' : ''}`}
-                      tabIndex={activeFilter === filter ? 0 : -1}
-                      onClick={() => selectFilter(filter)}
-                      onKeyDown={(event) => {
-                        if (['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
-                          event.preventDefault()
-                          handleFilterKeyDown(event.key, filter)
-                        }
-                      }}
-                    >
-                      {activeFilter === filter && <m.span className="absolute -inset-px -z-1 rounded-[inherit] bg-galaxy shadow-[.38rem_.42rem_0_#7d9fd2,0_.8rem_1.5rem_rgb(8_31_92/16%)] max-[430px]:shadow-[.25rem_.3rem_0_#7d9fd2,0_.65rem_1.2rem_rgb(8_31_92/14%)]" layoutId="active-skill-filter" transition={{ duration: reduceMotion ? 0 : 0.24, ease: [0.22, 1, 0.36, 1] }} />}
-                      <span className={`relative z-1 grid aspect-square w-[2.55rem] place-items-center rounded-[.78rem_.3rem_.78rem_.78rem] bg-[#dfeafb] text-planetary transition-colors duration-200 max-[430px]:w-[2.15rem] max-[430px]:rounded-[.65rem_.25rem_.65rem_.65rem] motion-reduce:transition-none [&_svg]:size-5 [&_svg]:max-[430px]:size-[1.05rem]${activeFilter === filter ? ' bg-white/14 text-white' : ''}`} aria-hidden="true"><FilterIcon weight="bold" /></span>
-                      <span className="relative z-1 grid min-w-0 gap-[.18rem]">
-                        <strong className="font-display text-[.83rem] leading-none font-[750] text-inherit max-[430px]:text-[.73rem] max-[430px]:leading-[1.12]">{isHardSkill ? 'Hard Skills' : 'Soft Skills'}</strong>
-                      </span>
-                      <span className={`relative z-1 grid h-7 min-w-7 place-items-center rounded-full bg-white text-[.65rem] font-extrabold text-planetary shadow-[0_.25rem_.65rem_rgb(8_31_92/8%)] max-[430px]:absolute max-[430px]:top-[.38rem] max-[430px]:right-[.4rem] max-[430px]:h-5 max-[430px]:min-w-5 max-[430px]:text-[.55rem]${activeFilter === filter ? ' bg-white/16 text-white shadow-none' : ''}`} aria-label={`${skillCount} skills`}>{skillCount}</span>
-                    </button>
-                  )
-                })}
-              </div>
-            </div>
-
-            <div id="skills-panel" className="mt-[clamp(2.5rem,5vw,4rem)] rounded-[1.25rem] focus-visible:outline-3 focus-visible:outline-universe focus-visible:outline-offset-8 max-md:mt-7" role="tabpanel" aria-labelledby={`${activeFilter}-skills-tab`} tabIndex={0}>
-              <AnimatePresence mode="wait" initial={false}>
-                {activeFilter === 'hard' ? (
-                  <m.ul key="hard" className="grid list-none grid-cols-10 auto-rows-[9.6rem] gap-[clamp(1.15rem,1.8vw,1.6rem)] px-5 pt-6 pb-12 [perspective:1000px] max-[1050px]:grid-cols-4 max-[1050px]:auto-rows-[8.8rem] max-md:grid-cols-2 max-md:auto-rows-[8.5rem] max-md:gap-x-5 max-md:gap-y-7 max-md:px-[.65rem] max-md:pt-4 max-md:pb-10 max-[430px]:auto-rows-[minmax(7.7rem,auto)] max-[430px]:gap-x-4 max-[430px]:gap-y-9 max-[430px]:px-[.4rem]" variants={reduceMotion ? undefined : skillListVariants} initial={reduceMotion ? false : 'hidden'} animate="visible" exit={reduceMotion ? undefined : 'exit'}>
-                    {hardSkills.map(({ name, Icon, color, size, tone }, index) => (
-                      <m.li
-                        key={name}
-                        className={`${skillCardBase} ${toneClasses[tone]} ${sizeClasses[size]}${index === 9 ? ' col-start-3 col-span-2 max-[1050px]:col-start-auto' : index === 10 ? ' col-start-5 col-span-2 max-[1050px]:col-start-auto' : index === 11 ? ' col-start-7 col-span-2 max-[1050px]:col-start-auto' : ''}${[0, 8, 11].includes(index) ? ` ${layeredCard}` : ''}`}
-                        style={{ '--skill-color': color } as CSSProperties}
-                        initial={reduceMotion ? false : { opacity: 0, y: 28, scale: .94, rotate: skillCardTilts[index] * 1.6 }}
-                        whileInView={{ opacity: 1, y: 0, scale: 1, rotate: reduceMotion ? 0 : skillCardTilts[index] }}
-                        viewport={{ once: true, amount: 0.18 }}
-                        whileHover={reduceMotion ? undefined : { y: -12, rotate: 0, scale: 1.035, zIndex: 10, transition: { type: 'spring', stiffness: 340, damping: 24, mass: .65, delay: 0 } }}
-                        transition={{ type: 'spring', stiffness: 300, damping: 24, mass: .65, delay: reduceMotion ? 0 : index * .045 }}
-                      >
-                        <span className={`${skillIconBase} text-[var(--skill-color)]${size === 'feature' ? ' size-[4.25rem] rounded-[1.1rem] max-[430px]:size-[3.25rem] [&_svg]:size-[2.8rem] [&_svg]:max-[430px]:size-[1.9rem]' : ''}`} aria-hidden="true"><Icon /></span>
-                        <strong className={`${skillNameBase}${size === 'feature' ? ' max-w-[14ch] text-[clamp(1.15rem,1.6vw,1.35rem)] max-[430px]:text-base' : ''}`}>{name}</strong>
-                      </m.li>
-                    ))}
-                  </m.ul>
-                ) : (
-                  <m.ul key="soft" className="grid list-none grid-cols-10 auto-rows-[9.6rem] gap-[clamp(1.15rem,1.8vw,1.6rem)] px-5 pt-6 pb-12 [perspective:1000px] max-[1050px]:grid-cols-4 max-[1050px]:auto-rows-[8.8rem] max-md:grid-cols-2 max-md:auto-rows-[8.5rem] max-md:gap-x-5 max-md:gap-y-7 max-md:px-[.65rem] max-md:pt-4 max-md:pb-10 max-[430px]:auto-rows-[minmax(7.7rem,auto)] max-[430px]:gap-x-4 max-[430px]:gap-y-9 max-[430px]:px-[.4rem]" variants={reduceMotion ? undefined : skillListVariants} initial={reduceMotion ? false : 'hidden'} animate="visible" exit={reduceMotion ? undefined : 'exit'}>
-                    {softSkills.map(({ name, Icon, size, tone }, index) => (
-                      <m.li
-                        key={name}
-                        className={`${skillCardBase} ${toneClasses[tone]} ${sizeClasses[size]}${index === 8 ? ' col-start-4 col-span-2 max-[1050px]:col-start-auto' : ''}${[0, 6, 9].includes(index) ? ` ${layeredCard}` : ''}`}
-                        initial={reduceMotion ? false : { opacity: 0, y: 28, scale: .94, rotate: skillCardTilts[index] * 1.6 }}
-                        whileInView={{ opacity: 1, y: 0, scale: 1, rotate: reduceMotion ? 0 : skillCardTilts[index] }}
-                        viewport={{ once: true, amount: 0.18 }}
-                        whileHover={reduceMotion ? undefined : { y: -12, rotate: 0, scale: 1.035, zIndex: 10, transition: { type: 'spring', stiffness: 340, damping: 24, mass: .65, delay: 0 } }}
-                        transition={{ type: 'spring', stiffness: 300, damping: 24, mass: .65, delay: reduceMotion ? 0 : index * .045 }}
-                      >
-                        <span className={`${skillIconBase} text-planetary${size === 'feature' ? ' size-[4.25rem] rounded-[1.1rem] max-[430px]:size-[3.25rem] [&_svg]:size-[2.8rem] [&_svg]:max-[430px]:size-[1.9rem]' : ''}`} aria-hidden="true"><Icon weight="duotone" /></span>
-                        <strong className={`${skillNameBase}${size === 'feature' ? ' max-w-[14ch] text-[clamp(1.15rem,1.6vw,1.35rem)] max-[430px]:text-base' : ''}`}>{name}</strong>
-                      </m.li>
-                    ))}
-                  </m.ul>
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
         </div>
       </LazyMotion>
     </section>
