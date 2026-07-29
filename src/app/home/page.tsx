@@ -84,8 +84,7 @@ export default function Home() {
 
             <div className="relative mt-8 ml-[clamp(1rem,5vw,5rem)] max-w-[37rem] animate-fade-up-intro border-l-2 border-planetary pl-5 max-[900px]:order-3 max-[900px]:mx-auto max-[900px]:mt-[-1rem] max-[900px]:border-l-0 max-[900px]:pl-0 max-[900px]:text-center max-[540px]:mx-auto max-[540px]:mt-[-1rem] max-[540px]:w-[calc(100vw_-_3rem)] max-[540px]:min-w-0 max-[540px]:max-w-[22rem] motion-reduce:animate-none">
               <p className="m-0 text-[clamp(1rem,1.25vw,1.12rem)] leading-[1.65] text-text-muted max-[540px]:w-full max-[540px]:text-[.93rem] max-[540px]:leading-[1.55] max-[540px]:[overflow-wrap:anywhere]">
-                Data Science student crafting clear,
-                human stories from complex information.
+                Data Scientist with hands-on experience in machine learning, cloud platforms, and LLM-powered AI applications.
               </p>
             </div>
 
@@ -94,10 +93,15 @@ export default function Home() {
                 <span>Explore my work</span>
                 <ArrowUpRight aria-hidden="true" />
               </a>
-              <span className={`${buttonBase} cursor-not-allowed border-galaxy/18 bg-white/45 text-galaxy opacity-68 backdrop-blur-[8px]`} role="link" aria-disabled="true" title="CV file coming soon">
+              <a
+                className={`${buttonBase} border-galaxy/18 bg-white/45 text-galaxy backdrop-blur-[8px] hover:-translate-y-1 hover:bg-white/70 hover:shadow-[0_1rem_2rem_rgb(8_31_92/16%)] [&_svg]:group-hover/button:translate-x-[3px] [&_svg]:group-hover/button:-translate-y-[3px]`}
+                href="https://drive.google.com/file/d/1poo6Z4FWh1fMsbfNZjWIxddJIdeM6XBS/view"
+                target="_blank"
+                rel="noreferrer"
+              >
                 <DownloadSimple aria-hidden="true" />
                 <span>Download CV</span>
-              </span>
+              </a>
             </div>
 
             <nav id="socials" className="mt-8 ml-[clamp(1rem,5vw,5rem)] flex animate-fade-up-socials items-center gap-[.55rem] max-[900px]:order-5 max-[900px]:mx-auto max-[900px]:mt-[-.5rem] max-[900px]:justify-center max-[540px]:mx-auto max-[540px]:mt-[-.25rem] max-[540px]:w-full max-[540px]:min-w-0 motion-reduce:animate-none" aria-label="Wilson's social links">

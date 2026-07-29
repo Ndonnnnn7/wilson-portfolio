@@ -1,43 +1,9 @@
 import {
   ChartLineUp,
-  GraduationCap,
-  Megaphone,
 } from '@phosphor-icons/react'
 import { LazyMotion, domAnimation, m, useReducedMotion } from 'motion/react'
 
 const experiences = [
-  {
-    period: 'May 2024 — Present',
-    type: 'Mentor',
-    title: 'Beelingua Mentor',
-    organization: 'BINUS University',
-    logo: '/Logo_Binus_University.svg',
-    location: 'Jakarta, Indonesia',
-    description:
-      'Guiding and supporting students with Beelingua application tasks at BINUS University. I help students improve their English and other language skills, including Japanese and Chinese, by assisting with assignments and providing practical feedback for academic progress.',
-    highlights: [
-      'Student mentoring',
-      'Language learning support',
-      'Assignment guidance',
-    ],
-    Icon: GraduationCap,
-  },
-  {
-    period: 'May 2024 — Present',
-    type: 'Part-time',
-    title: 'Education Counsellor',
-    organization: 'BINUS University',
-    logo: '/Logo_Binus_University.svg',
-    location: 'Indonesia',
-    description:
-      'Promoting BINUS University to prospective students throughout Indonesia and supporting them through the enrollment journey. I guide students from initial registration through acceptance, helping create a clear and successful admission process.',
-    highlights: [
-      'Student consultation',
-      'University promotion',
-      'Enrollment guidance',
-    ],
-    Icon: Megaphone,
-  },
   {
     period: 'Feb 2025 — Feb 2026',
     type: 'Internship',
@@ -51,6 +17,22 @@ const experiences = [
       'AI workflow integration',
       'Search by image',
       'Recommendation systems',
+    ],
+    Icon: ChartLineUp,
+  },
+  {
+    period: 'May 2026 — Present',
+    type: 'Internship',
+    title: 'Data Scientist',
+    organization: 'Artefact',
+    logo: '/artefact-logo.png',
+    location: 'Jakarta, Indonesia',
+    description:
+      'Worked as a Data Scientist intern at Artefact, contributing to analytics and AI-driven solutions with a focus on practical business impact and data storytelling.',
+    highlights: [
+      'Data analysis',
+      'AI-driven solutions',
+      'Business impact',
     ],
     Icon: ChartLineUp,
   },
@@ -126,8 +108,8 @@ export default function Experience() {
                   <p className="mb-3 text-xs font-extrabold tracking-[0.16em] text-planetary uppercase">
                     {String(index + 1).padStart(2, '0')} · {experience.type}
                   </p>
-                  <div className="mb-5 flex h-16 w-full max-w-56 items-center">
-                    <div className="h-10 w-full">
+                  <div className="mb-5 flex h-20 w-full max-w-64 items-center">
+                    <div className="h-12 w-full">
                       <img
                         src={experience.logo}
                         alt={`${experience.organization} logo`}

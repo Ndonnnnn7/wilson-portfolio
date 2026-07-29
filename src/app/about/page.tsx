@@ -4,7 +4,7 @@ import {
   ChatsCircle,
   ClockCountdown,
   Code,
-  GraduationCap,
+  Brain,
   Handshake,
   Lightbulb,
   MapPin,
@@ -184,8 +184,8 @@ export default function About() {
                 viewport={{ once: true, amount: 0.6 }}
                 transition={{ duration: 0.35, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
               >
-                <GraduationCap aria-hidden="true" />
-                <span className="text-[.82rem] leading-[1.25] font-[750] max-[430px]:text-[.72rem]"><small className="mb-[.12rem] block text-[.58rem] font-[650] tracking-[.1em] text-text-muted uppercase">Currently</small>Data Science student</span>
+                <Brain aria-hidden="true" />
+                <span className="text-[.82rem] leading-[1.25] font-[750] max-[430px]:text-[.72rem]"><small className="mb-[.12rem] block text-[.58rem] font-[650] tracking-[.1em] text-text-muted uppercase">Currently</small>Data Scientist</span>
               </m.div>
             </div>
 
@@ -198,8 +198,8 @@ export default function About() {
               transition={{ duration: 0.7, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
             >
               <div className="mt-[-2rem] max-w-[39rem] border-t-0 pt-0 [&_p]:m-0 [&_p]:max-w-[68ch] [&_p]:text-[clamp(.95rem,1.18vw,1.05rem)] [&_p]:leading-[1.72] [&_p]:text-text-muted [&_p+_p]:mt-4">
-                <p>I&apos;m Wilson Gregory Pribadi, an undergraduate Data Science student at Binus University. Working with data taught me that the best insight is not only accurate, it also needs to be clear, useful, and human.</p>
-                <p>I enjoy building visualizations, exploring patterns, and continually sharpening my thinking through feedback and hands-on experience.</p>
+                <p>I&apos;m Wilson Gregory Pribadi, a Data Scientist with 1+ years of hands-on experience building data-driven solutions. My experience spans cloud platforms, machine learning, and AI-powered applications, with a focus on delivering practical and scalable solutions.</p>
+                <p>I have hands-on experience developing machine learning models, working with cloud-based data platforms, and integrating and optimising Large Language Models (LLMs) for real-world use cases. I&apos;m passionate about transforming data into actionable insights and continuously expanding my expertise in AI and data science.</p>
               </div>
               <div className="mt-8 grid grid-cols-2 gap-3 max-[430px]:grid-cols-1" aria-label="Quick facts">
                 <div className="flex min-h-[4.2rem] items-center gap-[.7rem] rounded-[.85rem] border border-planetary/11 bg-[rgb(235_243_253/68%)] px-[.85rem] py-3 text-[.83rem] font-[650] text-galaxy"><MapPin className="size-[1.35rem] flex-none text-planetary" aria-hidden="true" /><span><small className="mb-[.15rem] block text-[.64rem] font-semibold tracking-[.07em] text-text-muted uppercase">Based in</small>Jakarta, Indonesia</span></div>
