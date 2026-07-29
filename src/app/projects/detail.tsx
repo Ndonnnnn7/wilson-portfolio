@@ -4,7 +4,7 @@ import {
   ChartLineUp,
   CheckCircle,
   Database,
-  GithubLogo,
+  FileText,
   Target,
 } from '@phosphor-icons/react'
 import { useEffect } from 'react'
@@ -124,8 +124,8 @@ export default function ProjectDetail() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <GithubLogo className="text-xl" weight="bold" aria-hidden="true" />
-                  Repository
+                  <FileText className="text-xl" weight="bold" aria-hidden="true" />
+                  Paper
                   <ArrowUpRight
                     className="transition-transform duration-300 ease-in-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                     weight="bold"
@@ -194,8 +194,8 @@ export default function ProjectDetail() {
                   rel="noreferrer"
                 >
                   <span className="inline-flex items-center gap-2">
-                    <GithubLogo className="text-lg" weight="bold" aria-hidden="true" />
-                    Repository
+                    <FileText className="text-lg" weight="bold" aria-hidden="true" />
+                    Paper
                   </span>
                   <ArrowUpRight
                     className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"

@@ -45,6 +45,8 @@ export const technologyLogos: Record<TechnologyKey, { name: string; Icon: Techno
 }
 
 const wilsonGithub = 'https://github.com/wilsongregory15'
+const ieeePaperUrl = 'https://ieeexplore.ieee.org/document/10963495'
+const ieeePaperUrl2 = 'https://ieeexplore.ieee.org/document/11101587'
 
 // Add another card by copying this object and replacing its content.
 export const projects: Project[] = [
@@ -76,6 +78,66 @@ export const projects: Project[] = [
         'The Random Forest model consistently outperformed deep learning models across all horizons, achieving the lowest average error of 1.00%.',
         'The impact of macroeconomic variables was index-specific: the IDX Composite was more sensitive to domestic indicators, while LQ45 and Kompas100 responded more strongly to global energy prices.',
         'Using all macroeconomic covariates simultaneously could introduce noise and reduce predictive accuracy, emphasizing the importance of targeted feature selection.',
+      ],
+    },
+  },
+  {
+    title: 'Improving Abstractive News Summarization Using Keyword Extraction for Human-Like Summaries',
+    category: 'Natural Language Processing',
+    year: '2025',
+    tags: ['NLP', 'Summarization', 'LLMs'],
+    images: ['/project-churn-dashboard.svg', '/project-churn-insights.svg'],
+    technologies: ['python'],
+    repositoryUrl: ieeePaperUrl2,
+    details: {
+      summary: 'A study exploring how keyword extraction techniques can improve abstractive news summarization quality and readability for BART and DistilBART models.',
+      background: 'As online information grows rapidly, abstractive summarization has become essential for condensing long news articles into concise, human-like summaries. Existing models often struggle with fluency and relevance, which creates a need for methods that better focus on the most important information.',
+      objective: 'Improve the accuracy and readability of abstractive news summaries by integrating RAKE, YAKE, and KeyBERT into BART and DistilBART models and evaluating the effect on summarization performance.',
+      dataInput: [
+        'The CNN-DailyMail news summarization dataset containing news articles and reference highlights.',
+        'A reduced subset of the dataset containing 2,871 training samples, 115 validation samples, and 134 test samples.',
+        'Text fields that include article content and generated highlights for summarization tasks.',
+      ],
+      methodology: [
+        'Data preprocessing: clean duplicated entries, remove the id column, remove punctuation and stopwords, and apply lemmatization.',
+        'Keyword extraction: use RAKE, YAKE, and transformer-based KeyBERT variants as signals to guide the summarization focus.',
+        'Summarization modeling: process the article and extracted keywords through BART-large-CNN and DistilBART-CNN-12-6.',
+        'Evaluation: compare generated summaries against human reference summaries using ROUGE-1, ROUGE-2, and ROUGE-L scores.',
+      ],
+      results: [
+        'Incorporating keyword extraction improved ROUGE scores for both BART and DistilBART compared with their baseline versions.',
+        'The BART model combined with RAKE achieved the highest ROUGE-1 score of 0.3733, while DistilBART with KeyBERT reached 0.3722.',
+        'The keyword-guided summaries were more balanced, coherent, and readable than the original gold reference summaries.',
+      ],
+    },
+  },
+  {
+    title: 'Enhancing Machine Failure Prediction Using Ensemble Models and Oversampling Techniques',
+    category: 'Predictive Maintenance',
+    year: '2024',
+    tags: ['Machine Learning', 'Imbalanced Data', 'Python'],
+    images: ['/project-churn-dashboard.svg', '/project-churn-insights.svg'],
+    technologies: ['python'],
+    repositoryUrl: ieeePaperUrl,
+    details: {
+      summary: 'A study evaluating ensemble learning models and oversampling techniques for predicting rare machine failures in highly imbalanced manufacturing data.',
+      background: 'Machine breakdowns in modern manufacturing create major financial losses and safety risks, making predictive maintenance essential for minimizing downtime and improving operational efficiency. The main challenge is that failure cases are extremely rare compared with normal operations, which can significantly affect model performance.',
+      objective: 'Evaluate the effectiveness of ensemble models such as Bagging, AdaBoost, Gradient Boosting, Random Forest, and XGBoost for machine failure prediction, and assess whether SMOTE and ADASYN can improve performance for the minority failure class.',
+      dataInput: [
+        'The Machine Predictive Maintenance Classification dataset containing 10,000 machine operation instances.',
+        'Operational features including air temperature, process temperature, rotational speed, torque, tool wear, and product quality type.',
+        'A highly imbalanced binary target where 0 indicates no failure and 1 indicates failure.',
+      ],
+      methodology: [
+        'Data preprocessing: remove irrelevant identifiers, encode product quality type numerically, and split the data into 80% training and 20% testing.',
+        'Model configuration: train five ensemble models with 100 estimators and a fixed random state for consistency.',
+        'Oversampling application: apply SMOTE and ADASYN to the training data to increase representation of the minority class.',
+        'Evaluation: compare model performance using accuracy, precision, recall, and F1-score.',
+      ],
+      results: [
+        'Gradient Boosting achieved the best performance among the baseline models without oversampling, reaching an F1-score of 0.78 for the failure class and an overall accuracy of 0.99.',
+        'SMOTE and ADASYN did not improve performance and instead reduced F1-scores for the failure class across the evaluated models.',
+        'The findings suggest that strong ensemble methods are more effective than synthetic oversampling for handling class imbalance in this dataset.',
       ],
     },
   },

@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowUpRight, GithubLogo } from '@phosphor-icons/react'
+import { ArrowRight, ArrowUpRight, FileText } from '@phosphor-icons/react'
 import { LazyMotion, domAnimation, m, useReducedMotion } from 'motion/react'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
@@ -123,8 +123,8 @@ function ProjectCard({
 
             {project.repositoryUrl && (
               <a className="inline-flex min-h-10 cursor-pointer items-center gap-2 rounded-full border border-galaxy/15 px-4 py-2 text-xs font-bold text-planetary no-underline transition-colors duration-200 hover:border-planetary/30 hover:bg-surface-muted hover:text-galaxy focus-visible:outline-2 focus-visible:outline-universe focus-visible:outline-offset-2" href={project.repositoryUrl} target="_blank" rel="noreferrer">
-                <GithubLogo className="h-4 w-4" weight="bold" aria-hidden="true" />
-                Repository
+                <FileText className="h-4 w-4" weight="bold" aria-hidden="true" />
+                Paper
                 <ArrowUpRight className="h-4 w-4" weight="bold" aria-hidden="true" />
               </a>
             )}
