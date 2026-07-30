@@ -233,7 +233,6 @@ export function SkillsSection() {
 
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null)
-  const [activeFilter, setActiveFilter] = useState<SkillFilter>('hard')
   const reduceMotion = Boolean(useReducedMotion())
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -242,15 +241,6 @@ export default function About() {
   const portraitY = useTransform(scrollYProgress, [0, 0.55], reduceMotion ? [0, 0] : [50, -26])
   const orbitRotate = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [-12, 28])
   const copyY = useTransform(scrollYProgress, [0, 0.55], reduceMotion ? [0, 0] : [30, -12])
-
-  const selectFilter = (filter: SkillFilter) => setActiveFilter(filter)
-
-  const handleFilterKeyDown = (key: string, filter: SkillFilter) => {
-    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(key)) return
-    const nextFilter = key === 'Home' ? 'hard' : key === 'End' ? 'soft' : filter === 'hard' ? 'soft' : 'hard'
-    selectFilter(nextFilter)
-    requestAnimationFrame(() => document.getElementById(`${nextFilter}-skills-tab`)?.focus())
-  }
 
   return (
     <section ref={sectionRef} id="about" className="relative isolate overflow-clip bg-transparent text-galaxy [contain-intrinsic-size:auto_40rem] [content-visibility:auto] before:absolute before:inset-0 before:-z-1 before:bg-[radial-gradient(rgb(51_78_172/13%)_.75px,transparent_.75px)] before:bg-size-[1.5rem_1.5rem] before:opacity-35 before:[mask-image:linear-gradient(to_bottom,transparent,#000_14%,#000_86%,transparent)] before:content-['']" aria-labelledby="about-title">
